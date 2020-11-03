@@ -21,6 +21,7 @@
             app:contentScrim="@color/colorPrimary"
             app:title="title"
             >
+        
 
             <ImageView
                 android:id="@+id/poster"
