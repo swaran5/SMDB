@@ -29,6 +29,9 @@ class SecondActivity : AppCompatActivity(){
         val url = baseimageurl+backdrop
 
         collapsing.title = title
+        collapsing.setExpandedTitleTextAppearance(R.style.ExpandedAppBar);
+        collapsing.setCollapsedTitleTextAppearance(R.style.CollapsedAppBar);
+
 
         textView.text = title +"\n\n"+ lang +"\n\n"+ date +"\n\n"+ genre+"\n\n"+ overview
 

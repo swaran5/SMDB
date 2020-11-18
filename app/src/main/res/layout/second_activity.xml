@@ -10,7 +10,7 @@
         android:id="@+id/appbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:theme="@style/ThemeOverlay.MyApp.ActionBar"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
         >
 
     <com.google.android.material.appbar.CollapsingToolbarLayout
@@ -33,7 +33,7 @@
         <androidx.appcompat.widget.Toolbar
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            app:popupTheme="@style/ThemeOverlay.MyApp.ActionBar"
+            app:popupTheme="@style/ThemeOverlay.AppCompat.Dark"
             />
 
     </com.google.android.material.appbar.CollapsingToolbarLayout>
