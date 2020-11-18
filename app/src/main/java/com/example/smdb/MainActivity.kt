@@ -27,9 +27,10 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        val category = arrayOf("Top Rated","Now Playing", "Up Coming","Popular")
+        val category = arrayOf("Top Rated", "Now Playing", "Up Coming", "Popular")
 
-        select_category.adapter = ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, category)
+        select_category.adapter =
+            ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, category)
 
         select_category.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
 
@@ -38,47 +39,51 @@ class MainActivity : AppCompatActivity() {
                 view: View?,
                 position: Int,
                 id: Long
-            ) { when(category[position]){
+            ) {
+                when (category[position]) {
 
-                "Popular"        -> PopularMovies()
-                "Now Playing"    -> NowPlaying()
-                "Top Rated"     -> TopRated()
-                "Up Coming"     -> UpComing()
+                    "Popular" -> PopularMovies()
+                    "Now Playing" -> NowPlaying()
+                    "Top Rated" -> TopRated()
+                    "Up Coming" -> UpComing()
 
+                }
             }
-            }
+
             override fun onNothingSelected(parent: AdapterView<*>?) {
 
             }
         }
     }
-        fun PopularMovies() {
 
-            val request = ServiceBuilder.buildService(EndPoints::class.java)
-            val call = request.getMovies("8bce9ec9952a3c292c2a37cd539e8464")
+    fun PopularMovies() {
 
-            call.enqueue(object : Callback<Movies> {
-                override fun onResponse(call: Call<Movies>, response: Response<Movies>) {
+        val request = ServiceBuilder.buildService(EndPoints::class.java)
+        val call = request.getMovies("8bce9ec9952a3c292c2a37cd539e8464")
 
-                    recyclerView.layoutManager = LinearLayoutManager(context)
+        call.enqueue(object : Callback<Movies> {
+            override fun onResponse(call: Call<Movies>, response: Response<Movies>) {
 
-                    val adapter = response.body()?.results?.let { MyAdapter(context, it) }
-                    recyclerView.adapter = adapter
+                recyclerView.layoutManager = LinearLayoutManager(context)
 
-                }
-                override fun onFailure(call: Call<Movies>, t: Throwable) {
+                val adapter = response.body()?.results?.let { MyAdapter(context, it) }
+                recyclerView.adapter = adapter
+
+            }
+
+            override fun onFailure(call: Call<Movies>, t: Throwable) {
                 Log.d("Home Screen", t.toString())
-                }
+            }
 
-            })
-        }
+        })
+    }
 
-    fun NowPlaying(){
+    fun NowPlaying() {
 
         val request = ServiceBuilder.buildService(EndPoints::class.java)
         val call = request.getNowPlaying("8bce9ec9952a3c292c2a37cd539e8464")
 
-        call.enqueue(object : Callback<NowPlaying>{
+        call.enqueue(object : Callback<NowPlaying> {
             override fun onResponse(call: Call<NowPlaying>, response: Response<NowPlaying>) {
 
                 recyclerView.layoutManager = LinearLayoutManager(context)
@@ -93,6 +98,7 @@ class MainActivity : AppCompatActivity() {
             }
         })
     }
+
     fun TopRated() {
 
         val request = ServiceBuilder.buildService(EndPoints::class.java)
@@ -107,6 +113,7 @@ class MainActivity : AppCompatActivity() {
                 recyclerView.adapter = adapter
 
             }
+
             override fun onFailure(call: Call<TopRated>, t: Throwable) {
                 Log.d("Home Screen", t.toString())
 
@@ -114,6 +121,7 @@ class MainActivity : AppCompatActivity() {
 
         })
     }
+
     fun UpComing() {
 
         val request = ServiceBuilder.buildService(EndPoints::class.java)
@@ -129,6 +137,7 @@ class MainActivity : AppCompatActivity() {
                 recyclerView.adapter = adapter
 
             }
+
             override fun onFailure(call: Call<UpComing>, t: Throwable) {
 
                 Log.d("Home Screen", t.toString())

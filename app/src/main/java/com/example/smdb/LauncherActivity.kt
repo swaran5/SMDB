@@ -1,4 +1,5 @@
 package com.example.smdb
+
 import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
@@ -12,9 +13,9 @@ class LauncherActivity : AppCompatActivity() {
         supportActionBar?.hide()
 
         Handler().postDelayed({
-           val intent = Intent(this, MainActivity::class.java)
+            val intent = Intent(this, MainActivity::class.java)
             startActivity(intent)
             finish()
-        },1800)
+        }, 1800)
     }
 }

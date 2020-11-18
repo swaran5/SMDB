@@ -30,7 +30,7 @@ class MyAdapter(val context: Context, val result: List<Result>) :
 
     override fun onBindViewHolder(holder: MyHolder, position: Int) {
         val movie = result[position]
-        holder.setData(movie,result)
+        holder.setData(movie, result)
     }
 
     override fun getItemCount(): Int {
@@ -38,7 +38,7 @@ class MyAdapter(val context: Context, val result: List<Result>) :
     }
 
     inner class MyHolder(val v: View) : RecyclerView.ViewHolder(v) {
-        var genres =""
+        var genres = ""
         var langs = ""
         var date = ""
         var title = ""
@@ -52,25 +52,25 @@ class MyAdapter(val context: Context, val result: List<Result>) :
                 val intent = Intent(context, SecondActivity::class.java)
                 intent.action = Intent.ACTION_SEND
                 intent.putExtra("key1", title)
-                intent.putExtra("key2", langs )
+                intent.putExtra("key2", langs)
                 intent.putExtra("key3", date)
                 intent.putExtra("key4", genres)
                 intent.putExtra("key5", backdrop)
                 intent.putExtra("key6", overview)
 
-                startActivity(context,intent,null)
+                startActivity(context, intent, null)
 
             }
         }
 
-        fun genres(moviesobj : Result, movieres :List<Result> ) {
+        fun genres(moviesobj: Result, movieres: List<Result>) {
             val request = ServiceBuilder.buildService(EndPoints::class.java)
             val call = request.getGenres("8bce9ec9952a3c292c2a37cd539e8464")
 
             call.enqueue(object : Callback<Genres> {
                 override fun onResponse(call: Call<Genres>, response: Response<Genres>) {
 
-                  var  genreresult = response.body()?.genres
+                    var genreresult = response.body()?.genres
                     val genre = moviesobj.genre_ids
                     var genrename = ""
 
@@ -80,34 +80,33 @@ class MyAdapter(val context: Context, val result: List<Result>) :
                             val oldgenre = genre[i]
 
                             if (genreresult != null) {
-                                for (j in 0..genreresult.size-1) {
+                                for (j in 0..genreresult.size - 1) {
 
                                     val genreid = genreresult?.get(j)?.id.toString()
-                                    if(genreid == oldgenre) {
+                                    if (genreid == oldgenre) {
                                         genrename = genreresult?.get(j)?.name
                                         v.findViewById<TextView>(R.id.genreVal).text = genrename
                                     }
 
                                 }
                             }
-                        }
-                        else {
+                        } else {
                             val oldgenre = genre[i]
 
                             if (genreresult != null) {
-                                for (j in 0..genreresult.size-1) {
+                                for (j in 0..genreresult.size - 1) {
                                     val genreid = genreresult?.get(j)?.id.toString()
-                                    if(genreid == oldgenre) {
+                                    if (genreid == oldgenre) {
                                         genrename = genrename + genreresult?.get(j)?.name
                                         v.findViewById<TextView>(R.id.genreVal).text = genrename
-                        }
+                                    }
                                 }
                             }
                         }
                         genres = v.findViewById<TextView>(R.id.genreVal).text.toString()
 
-                        if (i != genre.size-1){
-                            genrename = genrename+", "
+                        if (i != genre.size - 1) {
+                            genrename = genrename + ", "
                         }
                     }
                 }
@@ -119,17 +118,17 @@ class MyAdapter(val context: Context, val result: List<Result>) :
             })
         }
 
-        fun setData(obj: Result,res :List<Result>) {
+        fun setData(obj: Result, res: List<Result>) {
 
             val baseimageurl: String = "https://image.tmdb.org/t/p/w500"
             val imageurl = obj.poster_path
-             url = baseimageurl + imageurl
+            url = baseimageurl + imageurl
             Picasso.get().load(url).into(v.findViewById<ImageView>(R.id.imageView))
 
-              v.findViewById<TextView>(R.id.titleVal).text = obj.title
-              title = v.findViewById<TextView>(R.id.titleVal).text.toString()
+            v.findViewById<TextView>(R.id.titleVal).text = obj.title
+            title = v.findViewById<TextView>(R.id.titleVal).text.toString()
 
-             v.findViewById<TextView>(R.id.dateVal).text = obj.release_date
+            v.findViewById<TextView>(R.id.dateVal).text = obj.release_date
             date = v.findViewById<TextView>(R.id.dateVal).text.toString()
 
 
@@ -145,7 +144,7 @@ class MyAdapter(val context: Context, val result: List<Result>) :
                 else -> v.findViewById<TextView>(R.id.languageVal).text = lang
             }
             langs = v.findViewById<TextView>(R.id.languageVal).text.toString()
-            genres(obj , res)
+            genres(obj, res)
 
             backdrop = obj.backdrop_path
 
