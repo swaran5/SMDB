@@ -2,6 +2,14 @@ package com.example.smdb
 
 import android.content.Context
 import android.content.Intent
+import android.graphics.Color
+import android.graphics.Paint
+import android.graphics.Typeface.BOLD
+import android.text.Spannable
+import android.text.SpannableString
+import android.text.SpannableStringBuilder
+import android.text.style.ForegroundColorSpan
+import android.text.style.StyleSpan
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -85,7 +93,18 @@ class MyAdapter(val context: Context, val result: List<Result>) :
                                     val genreid = genreresult?.get(j)?.id.toString()
                                     if (genreid == oldgenre) {
                                         genrename = genreresult?.get(j)?.name
-                                        v.findViewById<TextView>(R.id.genreVal).text = genrename
+
+                                        genres = genrename
+                                       val spannablegenres = SpannableStringBuilder(genrename)
+
+                                        spannablegenres.insert(0,"Genres :  ")
+
+                                        spannablegenres.setSpan(StyleSpan(BOLD),
+                                            8, // start
+                                            spannablegenres.length, // end
+                                            Spannable.SPAN_EXCLUSIVE_INCLUSIVE
+                                        )
+                                        v.findViewById<TextView>(R.id.genreVal).text = spannablegenres
                                     }
 
                                 }
@@ -98,12 +117,23 @@ class MyAdapter(val context: Context, val result: List<Result>) :
                                     val genreid = genreresult?.get(j)?.id.toString()
                                     if (genreid == oldgenre) {
                                         genrename = genrename + genreresult?.get(j)?.name
-                                        v.findViewById<TextView>(R.id.genreVal).text = genrename
+
+                                        genres = genrename
+                                        val spannablegenres = SpannableStringBuilder(genrename)
+
+                                        spannablegenres.insert(0,"Genres :  ")
+
+                                        spannablegenres.setSpan(StyleSpan(BOLD),
+                                            8, // start
+                                            spannablegenres.length, // end
+                                            Spannable.SPAN_EXCLUSIVE_INCLUSIVE
+                                        )
+                                        v.findViewById<TextView>(R.id.genreVal).text = spannablegenres
                                     }
                                 }
                             }
                         }
-                        genres = v.findViewById<TextView>(R.id.genreVal).text.toString()
+
 
                         if (i != genre.size - 1) {
                             genrename = genrename + ", "
@@ -125,30 +155,75 @@ class MyAdapter(val context: Context, val result: List<Result>) :
             url = baseimageurl + imageurl
             Picasso.get().load(url).into(v.findViewById<ImageView>(R.id.imageView))
 
-            v.findViewById<TextView>(R.id.titleVal).text = obj.title
-            title = v.findViewById<TextView>(R.id.titleVal).text.toString()
 
-            v.findViewById<TextView>(R.id.dateVal).text = obj.release_date
-            date = v.findViewById<TextView>(R.id.dateVal).text.toString()
+
+
+
+            title = obj.title
+
+           val spanabletitle = SpannableStringBuilder(obj.title)
+
+            spanabletitle.insert(0,"Title :  ")
+
+            spanabletitle.setSpan(
+                StyleSpan(BOLD),
+                8, // start
+                spanabletitle.length, // end
+                Spannable.SPAN_EXCLUSIVE_INCLUSIVE
+            )
+
+            v.findViewById<TextView>(R.id.titleVal).text = spanabletitle
+
+
+
+            date = obj.release_date
+
+            val spanabledate = SpannableStringBuilder(obj.release_date)
+
+            spanabledate.insert(0,"Release Date :  ")
+
+            spanabledate.setSpan(
+                StyleSpan(BOLD),
+                14, // start
+                spanabledate.length, // end
+                Spannable.SPAN_EXCLUSIVE_INCLUSIVE
+            )
+
+            v.findViewById<TextView>(R.id.dateVal).text = spanabledate
 
 
             val lang = obj.original_language
 
             when (lang) {
-                "en" -> v.findViewById<TextView>(R.id.languageVal).text = "English"
-                "ja" -> v.findViewById<TextView>(R.id.languageVal).text = "Japanise"
-                "ko" -> v.findViewById<TextView>(R.id.languageVal).text = "Korean"
-                "es" -> v.findViewById<TextView>(R.id.languageVal).text = "Spanish"
-                "it" -> v.findViewById<TextView>(R.id.languageVal).text = "Italian"
-                "hi" -> v.findViewById<TextView>(R.id.languageVal).text = "Hindi"
-                else -> v.findViewById<TextView>(R.id.languageVal).text = lang
+                "en" ->  langs = "English"
+                "ja" ->  langs = "Japanise"
+                "ko" ->  langs = "Korean"
+                "es" ->  langs = "Spanish"
+                "it" ->  langs = "Italian"
+                "hi" ->  langs = "Hindi"
+                "fr" ->  langs = "French"
+                "ru" ->  langs = "Russian"
+                else ->  langs = lang
             }
-            langs = v.findViewById<TextView>(R.id.languageVal).text.toString()
+            val spanablelang = SpannableStringBuilder(langs)
+
+            spanablelang.insert(0,"Language :  ")
+
+            spanablelang.setSpan(
+                StyleSpan(BOLD),
+                10, // start
+                spanablelang.length, // end
+                Spannable.SPAN_EXCLUSIVE_INCLUSIVE
+            )
+
+            v.findViewById<TextView>(R.id.languageVal).text = spanablelang
+
             genres(obj, res)
 
             backdrop = obj.backdrop_path
 
             overview = obj.overview
+
 
         }
 
