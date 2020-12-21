@@ -1,38 +1,40 @@
 package com.example.smdb
 
-data class Movies (
+data class Movies(
     val results: List<Result>
 )
 
 data class Result(
     val id: Int,
     var title: String,
-    val adult:Boolean,
+    val adult: Boolean,
     val poster_path: String,
-    val release_date:String,
-    val original_language:String,
-    val backdrop_path : String,
-    val overview : String,
+    val release_date: String,
+    val original_language: String,
+    val backdrop_path: String,
+    val overview: String,
     val genre_ids: Array<String>
+)
 
+data class NowPlaying(
+    val results: List<Result>
+)
+
+data class TopRated(
+    val results: List<Result>
+)
+
+data class UpComing(
+    val results: List<Result>
 )
 
 data class Genres(
-    val genres : List<GenreName>
+    val genres: List<GenreName>
 )
 
 data class GenreName(
 
-    val id : Int,
-    val name : String
+    val id: Int,
+    val name: String
 )
 
-data class NowPlaying(
-    val results : List<Result>
-)
-data class TopRated(
-    val results : List<Result>
-)
-data class UpComing(
-    val results : List<Result>
-)

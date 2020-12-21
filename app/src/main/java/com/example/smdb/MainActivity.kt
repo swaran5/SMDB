@@ -22,6 +22,8 @@ import retrofit2.Response
 
 class MainActivity : AppCompatActivity() {
     val context = this
+    val request = ServiceBuilder.buildService(EndPoints::class.java)
+    val key = "8bce9ec9952a3c292c2a37cd539e8464"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -58,8 +60,7 @@ class MainActivity : AppCompatActivity() {
 
     fun PopularMovies() {
 
-        val request = ServiceBuilder.buildService(EndPoints::class.java)
-        val call = request.getMovies("8bce9ec9952a3c292c2a37cd539e8464")
+        val call = request.getMovies(key)
 
         call.enqueue(object : Callback<Movies> {
             override fun onResponse(call: Call<Movies>, response: Response<Movies>) {
@@ -80,8 +81,7 @@ class MainActivity : AppCompatActivity() {
 
     fun NowPlaying() {
 
-        val request = ServiceBuilder.buildService(EndPoints::class.java)
-        val call = request.getNowPlaying("8bce9ec9952a3c292c2a37cd539e8464")
+        val call = request.getNowPlaying(key)
 
         call.enqueue(object : Callback<NowPlaying> {
             override fun onResponse(call: Call<NowPlaying>, response: Response<NowPlaying>) {
@@ -101,8 +101,7 @@ class MainActivity : AppCompatActivity() {
 
     fun TopRated() {
 
-        val request = ServiceBuilder.buildService(EndPoints::class.java)
-        val call = request.getTopRated("8bce9ec9952a3c292c2a37cd539e8464")
+        val call = request.getTopRated(key)
 
         call.enqueue(object : Callback<TopRated> {
             override fun onResponse(call: Call<TopRated>, response: Response<TopRated>) {
@@ -124,8 +123,7 @@ class MainActivity : AppCompatActivity() {
 
     fun UpComing() {
 
-        val request = ServiceBuilder.buildService(EndPoints::class.java)
-        val call = request.getUpComing("8bce9ec9952a3c292c2a37cd539e8464")
+        val call = request.getUpComing(key)
 
         call.enqueue(object : Callback<UpComing> {
 

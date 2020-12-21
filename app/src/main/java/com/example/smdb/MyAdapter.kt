@@ -95,16 +95,18 @@ class MyAdapter(val context: Context, val result: List<Result>) :
                                         genrename = genreresult?.get(j)?.name
 
                                         genres = genrename
-                                       val spannablegenres = SpannableStringBuilder(genrename)
+                                        val spannablegenres = SpannableStringBuilder(genrename)
 
-                                        spannablegenres.insert(0,"Genres :  ")
+                                        spannablegenres.insert(0, "Genres :  ")
 
-                                        spannablegenres.setSpan(StyleSpan(BOLD),
+                                        spannablegenres.setSpan(
+                                            StyleSpan(BOLD),
                                             8, // start
                                             spannablegenres.length, // end
                                             Spannable.SPAN_EXCLUSIVE_INCLUSIVE
                                         )
-                                        v.findViewById<TextView>(R.id.genreVal).text = spannablegenres
+                                        v.findViewById<TextView>(R.id.genreVal).text =
+                                            spannablegenres
                                     }
 
                                 }
@@ -121,14 +123,16 @@ class MyAdapter(val context: Context, val result: List<Result>) :
                                         genres = genrename
                                         val spannablegenres = SpannableStringBuilder(genrename)
 
-                                        spannablegenres.insert(0,"Genres :  ")
+                                        spannablegenres.insert(0, "Genres :  ")
 
-                                        spannablegenres.setSpan(StyleSpan(BOLD),
+                                        spannablegenres.setSpan(
+                                            StyleSpan(BOLD),
                                             8, // start
                                             spannablegenres.length, // end
                                             Spannable.SPAN_EXCLUSIVE_INCLUSIVE
                                         )
-                                        v.findViewById<TextView>(R.id.genreVal).text = spannablegenres
+                                        v.findViewById<TextView>(R.id.genreVal).text =
+                                            spannablegenres
                                     }
                                 }
                             }
@@ -161,9 +165,9 @@ class MyAdapter(val context: Context, val result: List<Result>) :
 
             title = obj.title
 
-           val spanabletitle = SpannableStringBuilder(obj.title)
+            val spanabletitle = SpannableStringBuilder(obj.title)
 
-            spanabletitle.insert(0,"Title :  ")
+            spanabletitle.insert(0, "Title :  ")
 
             spanabletitle.setSpan(
                 StyleSpan(BOLD),
@@ -180,7 +184,7 @@ class MyAdapter(val context: Context, val result: List<Result>) :
 
             val spanabledate = SpannableStringBuilder(obj.release_date)
 
-            spanabledate.insert(0,"Release Date :  ")
+            spanabledate.insert(0, "Release Date :  ")
 
             spanabledate.setSpan(
                 StyleSpan(BOLD),
@@ -195,19 +199,19 @@ class MyAdapter(val context: Context, val result: List<Result>) :
             val lang = obj.original_language
 
             when (lang) {
-                "en" ->  langs = "English"
-                "ja" ->  langs = "Japanise"
-                "ko" ->  langs = "Korean"
-                "es" ->  langs = "Spanish"
-                "it" ->  langs = "Italian"
-                "hi" ->  langs = "Hindi"
-                "fr" ->  langs = "French"
-                "ru" ->  langs = "Russian"
-                else ->  langs = lang
+                "en" -> langs = "English"
+                "ja" -> langs = "Japanise"
+                "ko" -> langs = "Korean"
+                "es" -> langs = "Spanish"
+                "it" -> langs = "Italian"
+                "hi" -> langs = "Hindi"
+                "fr" -> langs = "French"
+                "ru" -> langs = "Russian"
+                else -> langs = lang
             }
             val spanablelang = SpannableStringBuilder(langs)
 
-            spanablelang.insert(0,"Language :  ")
+            spanablelang.insert(0, "Language :  ")
 
             spanablelang.setSpan(
                 StyleSpan(BOLD),

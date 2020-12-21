@@ -34,7 +34,7 @@ class SecondActivity : AppCompatActivity() {
         val date = bundle?.getString("key3")
         val genre = bundle?.getString("key4")
         val backdrop = bundle?.getString("key5")
-        val overview   = bundle?.getString("key6")
+        val overview = bundle?.getString("key6")
 
         val url = baseimageurl + backdrop
 
@@ -43,7 +43,7 @@ class SecondActivity : AppCompatActivity() {
         collapsing.setCollapsedTitleTextAppearance(R.style.CollapsedAppBar);
 
         val spannabletiltle = SpannableStringBuilder(title)
-        spannabletiltle.insert(0,"Title :  ")
+        spannabletiltle.insert(0, "Title :  ")
 
         spannabletiltle.setSpan(
             StyleSpan(BOLD),
@@ -53,7 +53,7 @@ class SecondActivity : AppCompatActivity() {
         )
 
         val spannablelang = SpannableStringBuilder(lang)
-        spannablelang.insert(0,"Language :  ")
+        spannablelang.insert(0, "Language :  ")
 
         spannablelang.setSpan(
             StyleSpan(BOLD),
@@ -63,7 +63,7 @@ class SecondActivity : AppCompatActivity() {
         )
 
         val spannabledate = SpannableStringBuilder(date)
-        spannabledate.insert(0,"Release date :  ")
+        spannabledate.insert(0, "Release date :  ")
 
         spannabledate.setSpan(
             StyleSpan(BOLD),
@@ -73,7 +73,7 @@ class SecondActivity : AppCompatActivity() {
         )
 
         val spannablegenre = SpannableStringBuilder(genre)
-        spannablegenre.insert(0,"Genres :  ")
+        spannablegenre.insert(0, "Genres :  ")
 
         spannablegenre.setSpan(
             StyleSpan(BOLD),
@@ -83,7 +83,7 @@ class SecondActivity : AppCompatActivity() {
         )
 
         val spannableoverview = SpannableStringBuilder(overview)
-        spannableoverview.insert(0,"Overview :  \n")
+        spannableoverview.insert(0, "Overview :  \n")
 
         spannableoverview.setSpan(
             StyleSpan(BOLD),
@@ -101,7 +101,8 @@ class SecondActivity : AppCompatActivity() {
         Picasso.get().load(url).into(findViewById<ImageView>(R.id.poster))
 
         share.setOnClickListener {
-            val intro = "Hey Checkout this Movie.." + "${"\n\n"+ spannabletiltle + "\n\n" + spannabledate +"\n\n" + spannablegenre}"
+            val intro =
+                "Hey Checkout this Movie.." + "${"\n\n" + spannabletiltle + "\n\n" + spannabledate + "\n\n" + spannablegenre}"
             val intent = Intent()
             intent.action = Intent.ACTION_SEND
             intent.putExtra(Intent.EXTRA_TEXT, intro)
