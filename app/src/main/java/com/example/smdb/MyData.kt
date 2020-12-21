@@ -16,18 +16,6 @@ data class Result(
     val genre_ids: Array<String>
 )
 
-data class NowPlaying(
-    val results: List<Result>
-)
-
-data class TopRated(
-    val results: List<Result>
-)
-
-data class UpComing(
-    val results: List<Result>
-)
-
 data class Genres(
     val genres: List<GenreName>
 )
