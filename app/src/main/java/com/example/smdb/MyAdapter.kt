@@ -146,8 +146,6 @@ class MyAdapter(val context: Context, val result: List<Result>) :
                 }
 
                 override fun onFailure(call: Call<Genres>, t: Throwable) {
-                    TODO("Not yet implemented")
-
                 }
             })
         }

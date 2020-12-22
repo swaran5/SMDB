@@ -10,6 +10,7 @@ import android.widget.Adapter
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.LinearLayout
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.tabs.TabLayout
@@ -21,15 +22,16 @@ import retrofit2.Response
 
 class MainActivity : AppCompatActivity() {
     val context = this
-    val request = ServiceBuilder.buildService(EndPoints::class.java)
-    val key = "8bce9ec9952a3c292c2a37cd539e8464"
-    lateinit var name: String
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        val category = arrayOf("Top Rated", "Now Playing", "Up Coming", "Popular")
+        var viewModel : MainViewModel = ViewModelProvider(this).get(MainViewModel::class.java)
+
+        recyclerView.layoutManager = LinearLayoutManager(context)
+
+        val category = arrayOf("Popular","Top Rated", "Now Playing", "Up Coming" )
 
         select_category.adapter =
             ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, category)
@@ -41,37 +43,24 @@ class MainActivity : AppCompatActivity() {
                 view: View?,
                 position: Int,
                 id: Long
-            ) {
+            ) { var name = ""
                 when (category[position]) {
 
                     "Popular" -> name = "popular"
-                    "Now Playing" -> name = "now_playing"
                     "Top Rated" -> name = "top_rated"
+                    "Now Playing" -> name = "now_playing"
                     "Up Coming" -> name = "upcoming"
-
                 }
-                val call = request.getMovies(name, key)
-
-                call.enqueue(object : Callback<Movies> {
-                    override fun onResponse(call: Call<Movies>, response: Response<Movies>) {
-
-                        recyclerView.layoutManager = LinearLayoutManager(context)
-
-                        val adapter = response.body()?.results?.let { MyAdapter(context, it) }
-                        recyclerView.adapter = adapter
-
-                    }
-
-                    override fun onFailure(call: Call<Movies>, t: Throwable) {
-                        Log.d("Home Screen", t.toString())
-                    }
-
-                })
+                viewModel.getMovies(name)
             }
 
             override fun onNothingSelected(parent: AdapterView<*>?) {
 
             }
         }
+        viewModel.movielist.observe(this@MainActivity, {
+            val adapter = MyAdapter(this@MainActivity, it )
+            recyclerView.adapter = adapter
+        })
     }
 }
