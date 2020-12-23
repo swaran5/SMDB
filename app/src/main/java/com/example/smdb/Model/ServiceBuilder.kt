@@ -1,9 +1,5 @@
-package com.example.smdb
+package com.example.smdb.Model
 
-import com.google.gson.Gson
-import com.google.gson.JsonArray
-import com.google.gson.JsonObject
-import com.google.gson.internal.`$Gson$Types`
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory

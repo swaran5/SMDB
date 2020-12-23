@@ -1,10 +1,11 @@
-package com.example.smdb
+package com.example.smdb.Model
 
+import com.example.smdb.Genres
+import com.example.smdb.Movies
 import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.Path
 import retrofit2.http.Query
-import java.nio.channels.spi.AbstractSelectionKey
 
 interface EndPoints {
     @GET("movie/{name}")

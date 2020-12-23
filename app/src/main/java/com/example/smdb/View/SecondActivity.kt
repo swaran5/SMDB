@@ -1,24 +1,14 @@
-package com.example.smdb
+package com.example.smdb.View
 
-import android.content.Context
 import android.content.Intent
-import android.graphics.Color
-import android.graphics.Typeface
-import android.graphics.Typeface.BOLD
 import android.os.Bundle
-import android.text.Spannable
-import android.text.SpannableString
-import android.text.SpannableStringBuilder
-import android.text.style.ForegroundColorSpan
-import android.text.style.StyleSpan
-import android.view.View
 import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
-import com.example.smdb.ServiceBuilder.url
+import com.example.smdb.R
+import com.example.smdb.ViewModel.SecondViewModel
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.second_activity.*
-import java.lang.System.load
 
 class SecondActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {

@@ -1,27 +1,22 @@
-package com.example.smdb
+package com.example.smdb.View
 
 import android.content.Context
 import android.content.Intent
-import android.graphics.Color
-import android.graphics.Paint
 import android.graphics.Typeface.BOLD
 import android.text.Spannable
-import android.text.SpannableString
 import android.text.SpannableStringBuilder
-import android.text.style.ForegroundColorSpan
 import android.text.style.StyleSpan
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Adapter
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.core.content.ContextCompat.startActivity
 import androidx.recyclerview.widget.RecyclerView
-import com.example.smdb.ServiceBuilder.url
+import com.example.smdb.*
+import com.example.smdb.Model.EndPoints
+import com.example.smdb.Model.ServiceBuilder
 import com.squareup.picasso.Picasso
-import kotlinx.android.synthetic.main.activity_main.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -69,85 +64,6 @@ class MyAdapter(val context: Context, val result: List<Result>) :
                 startActivity(context, intent, null)
 
             }
-        }
-
-        fun genres(moviesobj: Result, movieres: List<Result>) {
-            val request = ServiceBuilder.buildService(EndPoints::class.java)
-            val call = request.getGenres("8bce9ec9952a3c292c2a37cd539e8464")
-
-            call.enqueue(object : Callback<Genres> {
-                override fun onResponse(call: Call<Genres>, response: Response<Genres>) {
-
-                    var genreresult = response.body()?.genres
-                    val genre = moviesobj.genre_ids
-                    var genrename = ""
-
-
-                    for (i in 0..genre.size - 1) {
-                        if (i == 0) {
-                            val oldgenre = genre[i]
-
-                            if (genreresult != null) {
-                                for (j in 0..genreresult.size - 1) {
-
-                                    val genreid = genreresult?.get(j)?.id.toString()
-                                    if (genreid == oldgenre) {
-                                        genrename = genreresult?.get(j)?.name
-
-                                        genres = genrename
-                                        val spannablegenres = SpannableStringBuilder(genrename)
-
-                                        spannablegenres.insert(0, "Genres :  ")
-
-                                        spannablegenres.setSpan(
-                                            StyleSpan(BOLD),
-                                            8, // start
-                                            spannablegenres.length, // end
-                                            Spannable.SPAN_EXCLUSIVE_INCLUSIVE
-                                        )
-                                        v.findViewById<TextView>(R.id.genreVal).text =
-                                            spannablegenres
-                                    }
-
-                                }
-                            }
-                        } else {
-                            val oldgenre = genre[i]
-
-                            if (genreresult != null) {
-                                for (j in 0..genreresult.size - 1) {
-                                    val genreid = genreresult?.get(j)?.id.toString()
-                                    if (genreid == oldgenre) {
-                                        genrename = genrename + genreresult?.get(j)?.name
-
-                                        genres = genrename
-                                        val spannablegenres = SpannableStringBuilder(genrename)
-
-                                        spannablegenres.insert(0, "Genres :  ")
-
-                                        spannablegenres.setSpan(
-                                            StyleSpan(BOLD),
-                                            8, // start
-                                            spannablegenres.length, // end
-                                            Spannable.SPAN_EXCLUSIVE_INCLUSIVE
-                                        )
-                                        v.findViewById<TextView>(R.id.genreVal).text =
-                                            spannablegenres
-                                    }
-                                }
-                            }
-                        }
-
-
-                        if (i != genre.size - 1) {
-                            genrename = genrename + ", "
-                        }
-                    }
-                }
-
-                override fun onFailure(call: Call<Genres>, t: Throwable) {
-                }
-            })
         }
 
         fun setData(obj: Result, res: List<Result>) {
@@ -229,5 +145,83 @@ class MyAdapter(val context: Context, val result: List<Result>) :
 
         }
 
+        fun genres(moviesobj: Result, movieres: List<Result>) {
+            val request = ServiceBuilder.buildService(EndPoints::class.java)
+            val call = request.getGenres("8bce9ec9952a3c292c2a37cd539e8464")
+
+            call.enqueue(object : Callback<Genres> {
+                override fun onResponse(call: Call<Genres>, response: Response<Genres>) {
+
+                    var genreresult = response.body()?.genres
+                    val genre = moviesobj.genre_ids
+                    var genrename = ""
+
+
+                    for (i in 0..genre.size - 1) {
+                        if (i == 0) {
+                            val oldgenre = genre[i]
+
+                            if (genreresult != null) {
+                                for (j in 0..genreresult.size - 1) {
+
+                                    val genreid = genreresult?.get(j)?.id.toString()
+                                    if (genreid == oldgenre) {
+                                        genrename = genreresult?.get(j)?.name
+
+                                        genres = genrename
+                                        val spannablegenres = SpannableStringBuilder(genrename)
+
+                                        spannablegenres.insert(0, "Genres :  ")
+
+                                        spannablegenres.setSpan(
+                                            StyleSpan(BOLD),
+                                            8, // start
+                                            spannablegenres.length, // end
+                                            Spannable.SPAN_EXCLUSIVE_INCLUSIVE
+                                        )
+                                        v.findViewById<TextView>(R.id.genreVal).text =
+                                            spannablegenres
+                                    }
+
+                                }
+                            }
+                        } else {
+                            val oldgenre = genre[i]
+
+                            if (genreresult != null) {
+                                for (j in 0..genreresult.size - 1) {
+                                    val genreid = genreresult?.get(j)?.id.toString()
+                                    if (genreid == oldgenre) {
+                                        genrename = genrename + genreresult?.get(j)?.name
+
+                                        genres = genrename
+                                        val spannablegenres = SpannableStringBuilder(genrename)
+
+                                        spannablegenres.insert(0, "Genres :  ")
+
+                                        spannablegenres.setSpan(
+                                            StyleSpan(BOLD),
+                                            8, // start
+                                            spannablegenres.length, // end
+                                            Spannable.SPAN_EXCLUSIVE_INCLUSIVE
+                                        )
+                                        v.findViewById<TextView>(R.id.genreVal).text =
+                                            spannablegenres
+                                    }
+                                }
+                            }
+                        }
+
+
+                        if (i != genre.size - 1) {
+                            genrename = genrename + ", "
+                        }
+                    }
+                }
+
+                override fun onFailure(call: Call<Genres>, t: Throwable) {
+                }
+            })
+        }
     }
 }

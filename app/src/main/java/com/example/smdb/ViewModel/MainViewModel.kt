@@ -1,10 +1,12 @@
-package com.example.smdb
+package com.example.smdb.ViewModel
 
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import androidx.recyclerview.widget.LinearLayoutManager
-import kotlinx.android.synthetic.main.activity_main.*
+import com.example.smdb.Model.EndPoints
+import com.example.smdb.Movies
+import com.example.smdb.Result
+import com.example.smdb.Model.ServiceBuilder
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response

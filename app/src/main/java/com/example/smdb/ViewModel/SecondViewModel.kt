@@ -1,4 +1,4 @@
-package com.example.smdb
+package com.example.smdb.ViewModel
 
 import android.graphics.Typeface
 import android.text.Spannable
@@ -14,11 +14,11 @@ import java.util.*
 class SecondViewModel : ViewModel() {
 
     var introurl : MutableLiveData<String> = MutableLiveData()
-    var introtitle : MutableLiveData<String> = MutableLiveData()
-    var introlang : MutableLiveData<String> = MutableLiveData()
-    var introdate : MutableLiveData<String> = MutableLiveData()
-    var introgenre : MutableLiveData<String> = MutableLiveData()
-    var introoverview : MutableLiveData<String> = MutableLiveData()
+    var introtitle : MutableLiveData<SpannableStringBuilder> = MutableLiveData()
+    var introlang : MutableLiveData<SpannableStringBuilder> = MutableLiveData()
+    var introdate : MutableLiveData<SpannableStringBuilder> = MutableLiveData()
+    var introgenre : MutableLiveData<SpannableStringBuilder> = MutableLiveData()
+    var introoverview : MutableLiveData<SpannableStringBuilder> = MutableLiveData()
 
     val baseimageurl: String = "https://image.tmdb.org/t/p/w500"
     fun loadintro (
@@ -41,7 +41,7 @@ class SecondViewModel : ViewModel() {
             spannabletiltle.length, // end
             Spannable.SPAN_EXCLUSIVE_INCLUSIVE
         )
-        introtitle.postValue(spannabletiltle.toString())
+        introtitle.postValue(spannabletiltle)
 
         val spannablelang = SpannableStringBuilder(lang)
         spannablelang.insert(0, "Language :  ")
@@ -52,7 +52,7 @@ class SecondViewModel : ViewModel() {
             spannablelang.length, // end
             Spannable.SPAN_EXCLUSIVE_INCLUSIVE
         )
-        introlang.postValue(spannablelang.toString())
+        introlang.postValue(spannablelang)
 
         val spannabledate = SpannableStringBuilder(date)
         spannabledate.insert(0, "Release date :  ")
@@ -63,7 +63,7 @@ class SecondViewModel : ViewModel() {
             spannabledate.length, // end
             Spannable.SPAN_EXCLUSIVE_INCLUSIVE
         )
-        introdate.postValue(spannabledate.toString())
+        introdate.postValue(spannabledate)
 
         val spannablegenre = SpannableStringBuilder(genre)
         spannablegenre.insert(0, "Genres :  ")
@@ -74,7 +74,8 @@ class SecondViewModel : ViewModel() {
             spannablegenre.length, // end
             Spannable.SPAN_EXCLUSIVE_INCLUSIVE
         )
-        introgenre.postValue(spannablegenre.toString())
+        introgenre.postValue(spannablegenre)
+
         val spannableoverview = SpannableStringBuilder(overview)
         spannableoverview.insert(0, "Overview :  \n")
 
@@ -84,7 +85,7 @@ class SecondViewModel : ViewModel() {
             spannableoverview.length, // end
             Spannable.SPAN_EXCLUSIVE_INCLUSIVE
         )
-        introoverview.postValue(spannableoverview.toString())
+        introoverview.postValue(spannableoverview)
     }
 
 }
