@@ -10,6 +10,7 @@ import android.widget.Adapter
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.LinearLayout
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -27,17 +28,14 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        var viewModel : MainViewModel = ViewModelProvider(this).get(MainViewModel::class.java)
+       var viewModel : MainViewModel = ViewModelProvider(this).get(MainViewModel::class.java)
 
         recyclerView.layoutManager = LinearLayoutManager(context)
-
         val category = arrayOf("Popular","Top Rated", "Now Playing", "Up Coming" )
-
         select_category.adapter =
             ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, category)
 
         select_category.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-
             override fun onItemSelected(
                 parent: AdapterView<*>?,
                 view: View?,
@@ -58,7 +56,7 @@ class MainActivity : AppCompatActivity() {
 
             }
         }
-        viewModel.movielist.observe(this@MainActivity, {
+        viewModel.movielist.observe(this@MainActivity,{
             val adapter = MyAdapter(this@MainActivity, it )
             recyclerView.adapter = adapter
         })

@@ -14,6 +14,7 @@ import android.text.style.StyleSpan
 import android.view.View
 import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.ViewModelProvider
 import com.example.smdb.ServiceBuilder.url
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.second_activity.*
@@ -26,8 +27,6 @@ class SecondActivity : AppCompatActivity() {
 
         supportActionBar?.hide()
 
-        val baseimageurl: String = "https://image.tmdb.org/t/p/w500"
-
         val bundle: Bundle? = intent.extras
         val title = bundle?.getString("key1")
         val lang = bundle?.getString("key2")
@@ -36,73 +35,44 @@ class SecondActivity : AppCompatActivity() {
         val backdrop = bundle?.getString("key5")
         val overview = bundle?.getString("key6")
 
-        val url = baseimageurl + backdrop
+        var secondViewModle : SecondViewModel = ViewModelProvider(this).get(SecondViewModel::class.java)
+
+        secondViewModle.loadintro(
+            backdrop,
+            title,
+            lang,
+            date,
+            genre,
+            overview
+        )
 
         collapsing.title = title
-        collapsing.setExpandedTitleTextAppearance(R.style.ExpandedAppBar);
-        collapsing.setCollapsedTitleTextAppearance(R.style.CollapsedAppBar);
+        collapsing.setExpandedTitleTextAppearance(R.style.ExpandedAppBar)
+        collapsing.setCollapsedTitleTextAppearance(R.style.CollapsedAppBar)
 
-        val spannabletiltle = SpannableStringBuilder(title)
-        spannabletiltle.insert(0, "Title :  ")
+        secondViewModle.introtitle.observe(this,{
+            textView1.text = it
 
-        spannabletiltle.setSpan(
-            StyleSpan(BOLD),
-            6, // start
-            spannabletiltle.length, // end
-            Spannable.SPAN_EXCLUSIVE_INCLUSIVE
-        )
-
-        val spannablelang = SpannableStringBuilder(lang)
-        spannablelang.insert(0, "Language :  ")
-
-        spannablelang.setSpan(
-            StyleSpan(BOLD),
-            8, // start
-            spannablelang.length, // end
-            Spannable.SPAN_EXCLUSIVE_INCLUSIVE
-        )
-
-        val spannabledate = SpannableStringBuilder(date)
-        spannabledate.insert(0, "Release date :  ")
-
-        spannabledate.setSpan(
-            StyleSpan(BOLD),
-            14, // start
-            spannabledate.length, // end
-            Spannable.SPAN_EXCLUSIVE_INCLUSIVE
-        )
-
-        val spannablegenre = SpannableStringBuilder(genre)
-        spannablegenre.insert(0, "Genres :  ")
-
-        spannablegenre.setSpan(
-            StyleSpan(BOLD),
-            8, // start
-            spannablegenre.length, // end
-            Spannable.SPAN_EXCLUSIVE_INCLUSIVE
-        )
-
-        val spannableoverview = SpannableStringBuilder(overview)
-        spannableoverview.insert(0, "Overview :  \n")
-
-        spannableoverview.setSpan(
-            StyleSpan(BOLD),
-            10, // start
-            spannableoverview.length, // end
-            Spannable.SPAN_EXCLUSIVE_INCLUSIVE
-        )
-
-        textView1.text = spannabletiltle
-        textView2.text = spannablelang
-        textView3.text = spannabledate
-        textView4.text = spannablegenre
-        textView5.text = spannableoverview
-
-        Picasso.get().load(url).into(findViewById<ImageView>(R.id.poster))
+        })
+        secondViewModle.introlang.observe(this, {
+            textView2.text = it
+        })
+        secondViewModle.introdate.observe(this, {
+            textView3.text = it
+        })
+        secondViewModle.introgenre.observe(this, {
+            textView4.text = it
+        })
+        secondViewModle.introoverview.observe(this, {
+            textView5.text = it
+        })
+        secondViewModle.introurl.observe(this, {
+            Picasso.get().load(it).into(findViewById<ImageView>(R.id.poster))
+        })
 
         share.setOnClickListener {
             val intro =
-                "Hey Checkout this Movie.." + "${"\n\n" + spannabletiltle + "\n\n" + spannabledate + "\n\n" + spannablegenre}"
+                "Hey Checkout this Movie.." + "${"\n\n" + textView1.text + "\n\n" + textView3.text + "\n\n" + textView4.text}"
             val intent = Intent()
             intent.action = Intent.ACTION_SEND
             intent.putExtra(Intent.EXTRA_TEXT, intro)
