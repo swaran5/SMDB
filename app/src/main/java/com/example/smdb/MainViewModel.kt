@@ -13,22 +13,26 @@ class MainViewModel : ViewModel() {
     val request = ServiceBuilder.buildService(EndPoints::class.java)
     val key = "8bce9ec9952a3c292c2a37cd539e8464"
     var movielist = MutableLiveData<List<Result>>()
+    var previous_name = ""
 
     fun getMovies(name: String) {
 
-        val call = request.getMovies(name, key)
+        if(previous_name !== name){
+            val call = request.getMovies(name, key)
+           previous_name = name
 
-        call.enqueue(object : Callback<Movies> {
-            override fun onResponse(call: Call<Movies>, response: Response<Movies>) {
+            call.enqueue(object : Callback<Movies> {
+                override fun onResponse(call: Call<Movies>, response: Response<Movies>) {
 
-                movielist.postValue(response.body()?.results)
+                    movielist.postValue(response.body()?.results)
 
-            }
+                }
 
-            override fun onFailure(call: Call<Movies>, t: Throwable) {
-                Log.d("Home Screen", t.toString())
-            }
+                override fun onFailure(call: Call<Movies>, t: Throwable) {
+                    Log.d("Home Screen", t.toString())
+                }
 
-        })
+            })
+        }
     }
 }
