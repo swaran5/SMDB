@@ -21,7 +21,6 @@ data class Genres(
 )
 
 data class GenreName(
-
     val id: Int,
     val name: String
 )

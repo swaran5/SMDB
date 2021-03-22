@@ -10,7 +10,7 @@ import retrofit2.http.Query
 interface EndPoints {
     @GET("movie/{name}")
     fun getMovies(
-        @Path("name") name: String,
+        @Path("name") name: String ,
         @Query("api_key") key: String
     ): Call<Movies>
 

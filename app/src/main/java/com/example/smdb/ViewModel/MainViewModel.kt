@@ -19,9 +19,9 @@ class MainViewModel : ViewModel() {
 
     fun getMovies(name: String) {
 
-        if(previous_name !== name){
+        if (previous_name !== name) {
             val call = request.getMovies(name, key)
-           previous_name = name
+            previous_name = name
 
             call.enqueue(object : Callback<Movies> {
                 override fun onResponse(call: Call<Movies>, response: Response<Movies>) {
