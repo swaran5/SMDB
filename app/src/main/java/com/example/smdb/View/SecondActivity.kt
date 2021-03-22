@@ -25,7 +25,8 @@ class SecondActivity : AppCompatActivity() {
         val backdrop = bundle?.getString("key5")
         val overview = bundle?.getString("key6")
 
-        var secondViewModle : SecondViewModel = ViewModelProvider(this).get(SecondViewModel::class.java)
+        var secondViewModle: SecondViewModel =
+            ViewModelProvider(this).get(SecondViewModel::class.java)
 
         secondViewModle.loadintro(
             backdrop,
@@ -40,7 +41,7 @@ class SecondActivity : AppCompatActivity() {
         collapsing.setExpandedTitleTextAppearance(R.style.ExpandedAppBar)
         collapsing.setCollapsedTitleTextAppearance(R.style.CollapsedAppBar)
 
-        secondViewModle.introtitle.observe(this,{
+        secondViewModle.introtitle.observe(this, {
             textView1.text = it
 
         })

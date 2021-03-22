@@ -18,10 +18,10 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-       var viewModel : MainViewModel = ViewModelProvider(this).get(MainViewModel::class.java)
+        var viewModel: MainViewModel = ViewModelProvider(this).get(MainViewModel::class.java)
 
         recyclerView.layoutManager = LinearLayoutManager(context)
-        val category = arrayOf("Popular","Top Rated", "Now Playing", "Up Coming" )
+        val category = arrayOf("Popular", "Top Rated", "Now Playing", "Up Coming")
         select_category.adapter =
             ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, category)
 
@@ -31,7 +31,8 @@ class MainActivity : AppCompatActivity() {
                 view: View?,
                 position: Int,
                 id: Long
-            ) { var name = ""
+            ) {
+                var name = ""
                 when (category[position]) {
 
                     "Popular" -> name = "popular"
@@ -46,8 +47,8 @@ class MainActivity : AppCompatActivity() {
 
             }
         }
-        viewModel.movielist.observe(this@MainActivity,{
-            val adapter = MyAdapter(this@MainActivity, it )
+        viewModel.movielist.observe(this@MainActivity, {
+            val adapter = MyAdapter(this@MainActivity, it)
             recyclerView.adapter = adapter
         })
     }

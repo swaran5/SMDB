@@ -13,24 +13,24 @@ import java.util.*
 
 class SecondViewModel : ViewModel() {
 
-    var introurl : MutableLiveData<String> = MutableLiveData()
-    var introtitle : MutableLiveData<SpannableStringBuilder> = MutableLiveData()
-    var introlang : MutableLiveData<SpannableStringBuilder> = MutableLiveData()
-    var introdate : MutableLiveData<SpannableStringBuilder> = MutableLiveData()
-    var introgenre : MutableLiveData<SpannableStringBuilder> = MutableLiveData()
-    var introoverview : MutableLiveData<SpannableStringBuilder> = MutableLiveData()
+    var introurl: MutableLiveData<String> = MutableLiveData()
+    var introtitle: MutableLiveData<SpannableStringBuilder> = MutableLiveData()
+    var introlang: MutableLiveData<SpannableStringBuilder> = MutableLiveData()
+    var introdate: MutableLiveData<SpannableStringBuilder> = MutableLiveData()
+    var introgenre: MutableLiveData<SpannableStringBuilder> = MutableLiveData()
+    var introoverview: MutableLiveData<SpannableStringBuilder> = MutableLiveData()
 
     val baseimageurl: String = "https://image.tmdb.org/t/p/w500"
-    fun loadintro (
-        backdrop : String?,
-        title  : String?,
-        lang : String?,
-        date : String?,
-        genre : String?,
-        overview : String?
+    fun loadintro(
+        backdrop: String?,
+        title: String?,
+        lang: String?,
+        date: String?,
+        genre: String?,
+        overview: String?
 
-    ){
-         introurl.postValue(baseimageurl + backdrop)
+    ) {
+        introurl.postValue(baseimageurl + backdrop)
 
         val spannabletiltle = SpannableStringBuilder(title)
         spannabletiltle.insert(0, "Title :  ")
