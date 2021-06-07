@@ -1,4 +1,4 @@
-package com.example.smdb.View
+package com.example.smdb.ViewModel
 
 import android.content.Context
 import android.content.Intent
@@ -16,6 +16,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.smdb.*
 import com.example.smdb.Model.EndPoints
 import com.example.smdb.Model.ServiceBuilder
+import com.example.smdb.View.SecondActivity
 import com.squareup.picasso.Picasso
 import retrofit2.Call
 import retrofit2.Callback
